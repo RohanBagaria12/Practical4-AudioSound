@@ -1,0 +1,38 @@
+Create 3D Project
+In Hierarchy tab(on left), right click and select 3D Object -> Plane, scale x,y,z to 2 in inspector
+Again right click on Hierarchy Tab, select 3D object -> Sphere, rename Player
+In Inspector Tab of Sphere, set Position 0,0.5,0
+Again right click on Hierarchy Tab, select 3D object -> Cube, rename Wall, scale z to 21, give tag "Wall"
+Create a folder named Prefabs in Assets, drag Wall object to Prefabs
+Drag 3 times Wall in the hierarchy from Prefab
+Set position of all 4 walls as; (-10,0.5,0);(10,0.5,0);(0,0.5,-10);(0,0.5,10) and rotate y for last 2 wall
+Create Script folder in Assets, add a MonoBehaviour Script and rename it PlayerControl
+Add code : 
+           INSIDE THE CLASS 
+           private float movementX;
+           private float movement;
+           private RigidBody rb;
+           
+           public foat speed =0;
+           [SerializeField] AudioSource SFXSource;
+           public AudioClip crash;
+           
+           INSIDE THE Start() 
+	   rb = GetComponent<RigidBody()>;
+           SFXSource = GetComponent<AudioSource>();
+   
+           CREATE FUNCTION void OnMove(InputVlaue movementValue)
+           Vector2 movementVector = movementValue.Get<Vector2>();
+           movementX= movementVector.x;
+           movementY=movementvector.y;
+
+           CREATE FUNCTION void fixedUpdate()
+           Vector3 movement = new Vector3(movementX, 0.0f, movementY); 
+           rb.AddForce(movement*speed);
+
+           CREATE FUNCTION OnCollisionEnter(Collision collision)
+	   if(collsion.gameObject.CompareTag("Wall")){
+           SFXSource.PlayOneShot(crash,1.0f);}
+Add RigidBody, Player Input component in the Player inspector, drag the playerControl script to player
+Add EmptyObject on hierarchy tab rename it BackgroundMusic, add AudioSource component to it, Spatial Blend :0,tick loop, drag your background music
+Update speed in player->PlayerControl script, drag effect sound to the crash  
